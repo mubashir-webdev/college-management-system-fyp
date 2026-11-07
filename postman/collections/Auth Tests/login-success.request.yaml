@@ -1,0 +1,45 @@
+$kind: http-request
+name: 'Login - Success'
+method: POST
+url: 'http://localhost:5000/api/auth/login'
+order: 1000
+headers:
+  - key: Content-Type
+    value: application/json
+body:
+  type: json
+  content: |-
+    {
+      "email": "principal@college.com",
+      "password": "Admin@123456"
+    }
+scripts:
+  - type: afterResponse
+    language: text/javascript
+    code: |-
+      pm.test("Status code is 200", function () {
+          pm.response.to.have.status(200);
+      });
+
+      pm.test("Response has success true", function () {
+          var jsonData = pm.response.json();
+          pm.expect(jsonData.success).to.be.true;
+      });
+
+      pm.test("Response contains JWT token", function () {
+          var jsonData = pm.response.json();
+          pm.expect(jsonData).to.have.property("token");
+          pm.expect(jsonData.token).to.be.a("string").and.not.empty;
+      });
+
+      pm.test("Response contains user object", function () {
+          var jsonData = pm.response.json();
+          pm.expect(jsonData.user).to.have.property("id");
+          pm.expect(jsonData.user).to.have.property("email");
+          pm.expect(jsonData.user).to.have.property("role");
+      });
+
+      pm.test("Login message is correct", function () {
+          var jsonData = pm.response.json();
+          pm.expect(jsonData.message).to.eql("Login successful");
+      });

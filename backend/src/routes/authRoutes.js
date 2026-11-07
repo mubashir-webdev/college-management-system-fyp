@@ -1,10 +1,14 @@
 
 const express = require("express");
 const { login } = require("../controllers/authController");
+const { createLoginRateLimiter } = require("../config/security");
 
-const router = express.Router();
+const createAuthRoutes = (loginRateLimiter = createLoginRateLimiter()) => {
+  const router = express.Router();
 
-// Login Route
-router.post("/login", login);
+  router.post("/login", loginRateLimiter, login);
 
-module.exports = router;
+  return router;
+};
+
+module.exports = createAuthRoutes;

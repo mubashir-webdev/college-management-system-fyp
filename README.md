@@ -223,7 +223,7 @@ The project uses **MongoDB** as its primary database.
 ### Database
 
 ```text
-college_management_system
+college_management
 ```
 
 ### Current Collections
@@ -702,7 +702,7 @@ Example:
 
 ```env
 PORT=5000
-MONGO_URI=mongodb://127.0.0.1:27017/college_management_system
+MONGO_URI=mongodb://127.0.0.1:27017/college_management
 JWT_SECRET=your_secret_key
 ```
 

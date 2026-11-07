@@ -1,5 +1,7 @@
 # Backend Project Progress Report
 
+> Historical checkpoint: this report predates the current backend audit and fixes. See [BACKEND_AUDIT.md](./docs/BACKEND_AUDIT.md) and [API_DOCUMENTATION.md](./docs/API_DOCUMENTATION.md) for the updated status and verified results.
+
 **Review date:** 28 October 2026  
 **Scope:** Backend folder only  
 **Overall status:** The startup code issues found during review have been fixed. The app module now loads, but the database connection and full API behavior still need testing.

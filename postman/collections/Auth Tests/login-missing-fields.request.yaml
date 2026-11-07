@@ -1,0 +1,36 @@
+$kind: http-request
+name: 'Login - Missing Fields'
+method: POST
+url: 'http://localhost:5000/api/auth/login'
+order: 3000
+headers:
+  - key: Content-Type
+    value: application/json
+body:
+  type: json
+  content: |-
+    {
+      "email": "principal@college.com"
+    }
+scripts:
+  - type: afterResponse
+    language: text/javascript
+    code: |-
+      pm.test("Status code is 400", function () {
+          pm.response.to.have.status(400);
+      });
+
+      pm.test("Response has success false", function () {
+          var jsonData = pm.response.json();
+          pm.expect(jsonData.success).to.be.false;
+      });
+
+      pm.test("Error message indicates missing fields", function () {
+          var jsonData = pm.response.json();
+          pm.expect(jsonData.message).to.eql("Email and password are required");
+      });
+
+      pm.test("Response does not contain token", function () {
+          var jsonData = pm.response.json();
+          pm.expect(jsonData).to.not.have.property("token");
+      });

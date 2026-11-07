@@ -37,7 +37,7 @@ const requirePermission = (requiredPermission) => {
         message: "You do not have permission to perform this action",
       });
     } catch (error) {
-      console.error("Permission check error:", error.message);
+      console.error("Permission check failed:", error.name || "Error");
 
       return res.status(500).json({
         success: false,
